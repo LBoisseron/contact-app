@@ -2,10 +2,12 @@
  * pour déclarer une classe comme composant de notre application, on importe "component" via @angular/core
  */
 import { Component } from '@angular/core';
+import {Contact} from './models/contact';
 
 /**
  * @component est ce qu'on appelle un décorateur.
  * il va nous permettre de définir 3 paramètres essentiels à notre application...
+ * rajoute des éléments au fonctionnement du composant.
  */
 @Component({
   /**
@@ -28,18 +30,32 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // -- déclaration d'une variable
   title = 'Gestion de Contacts';
+  contactActif: Contact;
 
-  //déclaration d'un objet contact
-  unContact =
+  // déclaration d'un objet contact
+  unContact: Contact =
     {
       id: 1,
       name: 'Léna BOISSERON',
       username: 'lénaboisseron',
       email: 'lboisseron@yahoo.fr'
-      };
+    };
 
-  //tableau de contacts
-  mesContacts = [
+  // tableau de contacts
+  mesContacts: Contact[] = [
+
+    {
+      id: 1,
+      name: 'Léna BOISSERON',
+      username: 'lénaboisseron',
+      email: 'lboisseron@yahoo.fr',
+      address: [
+        '512'+' '+'Résidence'+' '+'la'+' '+'Sucrerie,'+' '+
+        'Saint-Jean,'+' '+
+        '97170 PETIT-BOURG'
+      ],
+      phone: '0690424043'
+    },
     {
       id: 2,
       name: 'Laureen LABUTHIE',
@@ -59,4 +75,11 @@ export class AppComponent {
       email: 'rosemael@yahoo.fr'
     },
   ];
+
+  /**
+   * permet d'afficher le profil d'un contact
+   */
+  displayProfil( contactChoisi: Contact ) {
+    this.contactActif = contactChoisi
+  }
 }
