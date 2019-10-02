@@ -80,6 +80,15 @@ export class AppComponent {
    * permet d'afficher le profil d'un contact
    */
   displayProfil( contactChoisi: Contact ) {
-    this.contactActif = contactChoisi
+    this.contactActif = contactChoisi;
+  }
+
+  /**
+   * le nouveau contact récupéré depuis le new component
+   * @param nouveauContact
+   */
+  addContact(nouveauContact: Contact) {
+    this.mesContacts.push(nouveauContact);
+
   }
 }

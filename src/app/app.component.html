@@ -20,28 +20,13 @@
           {{contact.name}}
         </a>
 
-      </div>
-    </div>
+      </div><!--/list group-->
+      <app-new (newContactEvent)="addContact($event)"></app-new>
+    </div> <!--/col 4-->
+
     <! -- profil de mon utilisateur -->
     <div class="col-sm-8">
-      <div class="jumbotron" *ngIf="contactActif">
-        <h1 class="display-4">{{contactActif.name}}</h1>
-        <p class="lead">{{contactActif.username}}<hr class="my-4">
-        <p>{{contactActif.email}}</p>
-        <p>{{contactActif.address}}</p>
-        <p>{{contactActif.phone}}</p>
-        <p>{{contactActif.website}}</p>
-        <p>{{contactActif.company}}</p>
-        <input type="text" [(ngModel)]="contactActif.name" class="form-control" >
-        <p class="lead"><hr class="my-4">
-        <a class="btn btn-warning btn-lg" role="button" href="">Retour</a>
-      </div>
-      <div class="jumbotron" *ngIf="!contactActif">
-        <h1 class="display-4">Bienvenue</h1>
-        <hr class="my-4">
-
-        <p>Choisissez un contact</p>
-      </div>
-    </div>
+        <app-profil [contactProfil]="contactActif"></app-profil>
   </div>
+</div>
 </div>
