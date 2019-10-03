@@ -1,8 +1,9 @@
 /**
  * pour déclarer une classe comme composant de notre application, on importe "component" via @angular/core
  */
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Contact} from './models/contact';
+import {StorageService} from './services/storage.service';
 
 /**
  * @component est ce qu'on appelle un décorateur.
@@ -27,7 +28,11 @@ import {Contact} from './models/contact';
  * la class contient les données du composant, mais aussi son comportement
  * dans notre contexte MVVM, notre class correspond au Model.
  */
-export class AppComponent {
+export class AppComponent implements  OnInit {
+
+  constructor(private storageService: StorageService) {
+
+  }
   // -- déclaration d'une variable
   title = 'Gestion de Contacts';
   contactActif: Contact;
@@ -42,39 +47,7 @@ export class AppComponent {
     };
 
   // tableau de contacts
-  mesContacts: Contact[] = [
-
-    {
-      id: 1,
-      name: 'Léna BOISSERON',
-      username: 'lénaboisseron',
-      email: 'lboisseron@yahoo.fr',
-      address: [
-        '512'+' '+'Résidence'+' '+'la'+' '+'Sucrerie,'+' '+
-        'Saint-Jean,'+' '+
-        '97170 PETIT-BOURG'
-      ],
-      phone: '0690424043'
-    },
-    {
-      id: 2,
-      name: 'Laureen LABUTHIE',
-      username: 'laureenlabuthie',
-      email: 'laureen@yahoo.fr'
-    },
-    {
-      id: 3,
-      name: 'Astrid JONATHAN',
-      username: 'astridjonathan',
-      email: 'astrid@yahoo.fr'
-    },
-    {
-      id: 3,
-      name: 'Rosemael ANTONY',
-      username: 'rosemaelantony',
-      email: 'rosemael@yahoo.fr'
-    },
-  ];
+  mesContacts: Contact[] = [];
 
   /**
    * permet d'afficher le profil d'un contact
@@ -89,6 +62,19 @@ export class AppComponent {
    */
   addContact(nouveauContact: Contact) {
     this.mesContacts.push(nouveauContact);
+    /**
+     * j'enregistre mes contacts dans le storage
+     */
+    this.storageService.saveContacts(
+      this.mesContacts
+    );
+  }
 
+  /**
+   * je récupère les contacts du storage
+   * je les insère dans mon tableau "mesContacts" au moment où l'application s'initialise. "ngOnInit"
+   */
+  ngOnInit(): void {
+    this.mesContacts = this.storageService.getContacts();
   }
 }
